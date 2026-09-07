@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ты умеешь строить сеть. Но выдержит ли она неделю без тебя?</title>
+<meta name="description" content="Первая волна — Longrich Россия. Для опытных сетевиков, которые устали быть незаменимыми.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0C0E;
+    --bg-soft:#111318;
+    --card:#15171c;
+    --card-border:#24262c;
+    --text:#e5e5e5;
+    --text-strong:#ffffff;
+    --text-dim:#a9a59c;
+    --text-leak:#a5a7ab;
+    --text-faint:#6f6c66;
+    --accent:#d98a3d;
+    --accent-soft:#e8b47a;
+    --line:#232429;
+    --danger:#c1584a;
+    --danger-soft:#3a201d;
+    --maxw:680px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',-apple-system,sans-serif;
+    font-size:20px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    color:var(--text-strong);
+  }
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+  @media(min-width:700px){
+    .wrap{padding:0 40px;}
+  }
+  section{
+    padding:88px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+  .fade{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .fade.in{opacity:1;transform:translateY(0);}
+
+  /* HERO */
+  .hero{
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:120px 24px;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:13px;
+    color:var(--accent-soft);
+    font-weight:600;
+    margin-bottom:28px;
+  }
+  .eyebrow-tag{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:10px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:12px;
+    color:var(--text-dim);
+    font-weight:600;
+    margin:0 0 36px;
+    width:100%;
+    max-width:820px;
+  }
+  .eyebrow-tag::before{
+    content:"";
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--accent-soft);
+    flex:none;
+  }
+  .hero h1{
+    font-size:clamp(30px,5.4vw,52px);
+    line-height:1.16;
+    margin:12px 0 20px;
+    max-width:820px;
+  }
+  .hero h1 span{color:var(--accent-soft);}
+  .hero .lead{
+    font-size:20px;
+    color:var(--text-dim);
+    margin:0 0 40px;
+  }
+  .scroll-cue{
+    margin-top:64px;
+    width:1px;
+    height:52px;
+    background:linear-gradient(var(--accent),transparent);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+  p{margin:0 0 18px;}
+  p.tight{margin:0 0 4px;}
+  .center{text-align:center;}
+
+  /* === scene rhythm system (4 levels) === */
+  .hook{
+    font-size:28px;
+    font-weight:600;
+    line-height:1.2;
+    color:var(--text-strong);
+    margin:0 0 40px;
+  }
+  .body-line{
+    font-size:20px;
+    font-weight:400;
+    line-height:1.45;
+    margin:0 0 14px;
+    color:var(--text);
+  }
+  .pause-56{height:56px;}
+  .pause-64{height:64px;}
+  .pause-36{height:36px;}
+  .divider{height:1px;background:var(--card-border);border:0;margin:48px 0;}
+
+  .big-question{
+    font-size:30px;
+    font-weight:700;
+    line-height:1.2;
+    color:var(--text-strong);
+    margin:0 0 18px;
+  }
+  .q-secondary{
+    font-size:21px;
+    font-weight:500;
+    line-height:1.35;
+    color:var(--text);
+    margin:0 0 8px;
+  }
+  .leak-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin:0 0 28px;
+  }
+  .leak-line{
+    font-size:18.5px;
+    line-height:1.4;
+    color:var(--text-leak);
+  }
+
+  /* chat bubbles (legacy, unused after redesign) */
+  .chatlist{display:flex;flex-direction:column;gap:10px;margin:32px 0;}
+  .bubble{align-self:flex-start;background:var(--card);border:1px solid var(--card-border);border-radius:14px 14px 14px 3px;padding:12px 18px;font-size:16px;color:var(--text-dim);max-width:78%;}
+
+  /* big statement blocks */
+  .statement{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:clamp(24px,4vw,34px);
+    line-height:1.28;
+    text-align:center;
+    margin:0 auto;
+    max-width:600px;
+    color:var(--text-strong);
+  }
+  .statement.small{
+    font-size:clamp(20px,3vw,26px);
+  }
+  .accent{color:var(--accent-soft);}
+
+  .kicker{
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--accent);
+    margin:0 0 18px;
+    text-align:center;
+  }
+
+  h2.section-title{
+    font-size:clamp(24px,3.6vw,32px);
+    text-align:center;
+    margin:0 0 36px;
+    line-height:1.3;
+  }
+
+  ul.plain{
+    list-style:none;
+    padding:0;
+    margin:0 0 20px;
+  }
+  ul.plain li{
+    padding:6px 0;
+    color:var(--text);
+  }
+  ul.plain li:before{
+    content:"— ";
+    color:var(--accent);
+  }
+
+  strong.hl{color:var(--accent-soft);font-weight:700;}
+
+  .callout-quote{
+    border-left:2px solid var(--accent);
+    padding:2px 0 2px 22px;
+    margin:0 0 22px;
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.2;
+    color:var(--text-strong);
+  }
+
+  .label-marker{
+    color:var(--accent);
+    font-weight:500;
+    font-size:16px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin:0 0 6px;
+  }
+  .mechanism-line{
+    font-size:22px;
+    font-weight:600;
+    color:var(--text-strong);
+    line-height:1.35;
+    margin:0 0 4px;
+  }
+  .mechanism-line.lead{font-size:27px;}
+  .mechanism-line.accent-line{color:var(--accent-soft);}
+  .conclusion-line{
+    font-size:26px;
+    font-weight:600;
+    color:var(--text-strong);
+    line-height:1.3;
+    margin:0;
+  }
+  .conclusion-line.accent{color:var(--accent-soft);}
+  .weight-hit{font-weight:700;color:var(--text-strong);}
+  .pause-20{height:20px;}
+  .pause-28{height:28px;}
+  .pause-40{height:40px;}
+  .pause-60{height:60px;}
+
+  .caps-hook{
+    font-size:24px;
+    font-weight:800;
+    text-transform:uppercase;
+    line-height:1.25;
+    letter-spacing:-0.01em;
+    color:var(--text-strong);
+    margin:0 0 28px;
+  }
+
+  .step-eyebrow{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    color:var(--text-faint);
+    font-weight:600;
+    margin:0 0 22px;
+  }
+  .step-title{
+    font-size:clamp(28px,5vw,38px);
+    font-weight:800;
+    text-transform:uppercase;
+    margin:0 0 28px;
+    line-height:1.15;
+  }
+  .list-boxes{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin:20px 0 28px;
+  }
+  .list-box{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:14px;
+    padding:18px 20px;
+    color:var(--text);
+    font-size:17px;
+    line-height:1.5;
+  }
+
+  /* cards */
+  .cards{display:grid;gap:16px;margin-top:36px;}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px 26px;}
+  .card h3{font-size:19px;margin:0 0 12px;display:flex;align-items:baseline;gap:10px;}
+  .card h3 .num{color:var(--accent);font-size:15px;font-weight:800;}
+  .card p{color:var(--text);margin:0 0 10px;font-size:16px;}
+  .card p:last-child{margin-bottom:0;}
+
+  /* stat cards — full width */
+  .stat-list{display:flex;flex-direction:column;gap:14px;margin:32px 0;}
+  .stat-card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:28px 26px;}
+  .stat-card h3{font-size:23px;margin:0 0 10px;line-height:1.25;}
+  .stat-card p{color:var(--text);font-size:16px;margin:0;line-height:1.5;}
+
+  /* stat grid — company facts */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:36px 0;}
+  .stat{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:24px 20px;}
+  .stat .n{font-family:'Manrope',sans-serif;font-weight:800;font-size:26px;color:var(--accent-soft);margin-bottom:8px;line-height:1.1;}
+  .stat p{color:var(--text);font-size:15px;margin:0;}
+
+  .hub-btn{display:inline-block;margin:28px auto 0;padding:14px 30px;border:1px solid var(--accent);color:var(--accent-soft);text-decoration:none;border-radius:100px;font-weight:600;font-size:15px;transition:background .2s ease,color .2s ease;}
+  .hub-btn:hover{background:var(--accent);color:#0b0c0f;}
+  .btn-wrap{text-align:center;}
+
+  /* offer cards 01-05 */
+  .offer-grid{display:grid;gap:14px;margin-top:36px;}
+  .offer-card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:24px 26px;display:flex;gap:18px;}
+  .offer-card .idx{font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;color:var(--accent);flex:none;width:36px;}
+  .offer-card h3{margin:0 0 8px;font-size:18px;}
+  .offer-card p{margin:0;color:var(--text);font-size:15.5px;}
+
+  /* antisale block */
+  .antisale{background:var(--danger-soft);border:1px solid #4a2b26;border-radius:18px;padding:36px 32px;margin:36px 0;}
+  .antisale h3{color:#e39184;font-size:19px;margin:0 0 16px;}
+  .antisale ul{list-style:none;padding:0;margin:0 0 20px;}
+  .antisale li{color:#d7b3ac;padding:5px 0;font-size:16px;}
+  .antisale li:before{content:"— ";}
+  .antisale .verdict{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#e39184;margin:0;}
+
+  /* final CTA */
+  .final{text-align:center;padding:110px 0 130px;background:radial-gradient(ellipse at 50% 100%, rgba(217,138,61,0.10), transparent 60%);}
+  .final .kicker{margin-bottom:14px;}
+  .final h2{font-size:clamp(26px,4.4vw,38px);margin:0 0 30px;line-height:1.25;}
+  .final ul.plain{display:inline-block;text-align:left;margin:0 0 32px;}
+  .cta-word{font-family:'Manrope',sans-serif;font-weight:800;color:var(--accent-soft);}
+  .cta-btn{display:inline-block;margin-top:18px;padding:20px 48px;background:var(--accent);color:#0b0c0f;text-decoration:none;border-radius:100px;font-family:'Manrope',sans-serif;font-weight:800;font-size:19px;letter-spacing:.02em;transition:transform .2s ease, box-shadow .2s ease;box-shadow:0 8px 30px rgba(217,138,61,.25);}
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(217,138,61,.35);}
+  .no-promises{margin-top:36px;color:var(--text-faint);font-size:14.5px;}
+  .final-line{margin-top:56px;font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(20px,3vw,26px);color:var(--text-strong);line-height:1.4;}
+
+  footer{text-align:center;padding:40px 24px;color:var(--text-faint);font-size:13px;}
+
+  @media(min-width:560px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .cards{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:480px){
+    body{font-size:18px;}
+    section{padding:64px 0;}
+    .hero{padding:90px 20px;min-height:auto;}
+    .hook{font-size:25px;}
+    .big-question{font-size:26px;}
+    .callout-quote{font-size:23px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Longrich Россия · Первая волна</div>
+  <div class="eyebrow-tag">Для опытных сетевиков</div>
+  <h1 class="fade">Ты умеешь строить сеть.<br>Но выдержит ли она <span>неделю без тебя?</span></h1>
+  <p class="lead fade">Проверим?</p>
+  <div class="scroll-cue"></div>
+</div>
+
+<!-- SCENE -->
+<section style="padding-top:56px;">
+  <div class="wrap fade">
+
+    <p class="hook">Если ты завтра<br>на неделю исчезнешь<br>из Telegram.</p>
+
+    <p class="body-line">Не будешь писать.</p>
+    <p class="body-line">Не будешь звонить.</p>
+    <p class="body-line">Не проведёшь ни одного созвона.</p>
+    <p class="body-line">Не напомнишь про план.</p>
+    <p class="body-line">Не спросишь:</p>
+
+    <div class="pause-36"></div>
+
+    <div class="callout-quote">«Ну что,<br>ты сегодня<br>сделал?»</div>
+
+    <div class="pause-64"></div>
+
+    <p class="big-question">Что произойдёт?</p>
+
+    <p class="q-secondary">Команда продолжит<br>делать то же самое?</p>
+
+    <div class="pause-36"></div>
+
+    <p class="body-line">Или через несколько дней<br>начнётся:</p>
+
+    <div class="leak-list">
+      <div class="leak-line">«А что сейчас<br>продвигаем?»</div>
+      <div class="leak-line">«А что говорить<br>людям?»</div>
+      <div class="leak-line">«А есть какой-нибудь<br>материал?»</div>
+      <div class="leak-line">«А ты можешь<br>объяснить?»</div>
+      <div class="leak-line">«А когда следующий<br>созвон?»</div>
+    </div>
+
+    <p class="body-line">А кто-то просто перестанет что-либо делать.</p>
+    <p class="body-line">Тихо.</p>
+    <p class="body-line">Без конфликта.</p>
+    <p class="body-line">Просто исчезнет.</p>
+
+    <div class="pause-36"></div>
+
+    <p>И вот здесь есть неприятная вещь, о которой в сетевом бизнесе почему-то мало говорят.</p>
+  </div>
+</section>
+
+<!-- PARADOX -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap fade">
+    <p class="statement">Чем сильнее лидер, тем легче ему построить команду, которая <span class="accent">без него не работает</span>.</p>
+    <p class="center" style="margin-top:28px;color:var(--text-dim);">Парадокс.</p>
+    <ul class="plain" style="margin-top:32px;">
+      <li>Умеешь приглашать — поэтому приглашаешь сам.</li>
+      <li>Умеешь объяснять — поэтому объясняешь сам.</li>
+      <li>Умеешь продавать — поэтому продаёшь сам.</li>
+      <li>Умеешь мотивировать — поэтому мотивируешь сам.</li>
+      <li>Умеешь разруливать — поэтому разруливаешь сам.</li>
+    </ul>
+    <p>И постепенно происходит незаметная подмена.</p>
+    <p>Ты думаешь: <strong class="hl">«Я строю команду»</strong>.</p>
+    <p>А по факту: <strong class="hl">«Я обслуживаю команду своим личным присутствием»</strong>.</p>
+    <p>Разница огромная.</p>
+    <p>Потому что пока ты рядом — всё работает.</p>
+    <ul class="plain">
+      <li>Ты устал — темп падает.</li>
+      <li>Ты заболел — команда ждёт.</li>
+      <li>Ты уехал — активность просела.</li>
+      <li>Ты перестал писать — никто не пишет.</li>
+    </ul>
+    <p>И тогда начинается знакомое:</p>
+    <p style="color:var(--text-dim);font-style:italic;">«Люди не те». «Никто не хочет работать». «Сейчас очень тяжело приглашать». «Люди ленивые». «Надо больше мотивации».</p>
+    <p><strong>Нет.</strong></p>
+    <p>Возможно, дело вообще не в людях.</p>
+  </div>
+</section>
+
+<!-- SYSTEM PROBLEM -->
+<section>
+  <div class="wrap fade">
+    <p class="statement small">Возможно, ты просто построил систему, в которой <span class="accent">ты сам стал незаменимым</span>.</p>
+    <p style="margin-top:32px;">И это звучит как комплимент.</p>
+    <p>Но для бизнеса — это проблема.</p>
+    <p>Потому что если без тебя ничего не происходит, у тебя не система.</p>
+    <p>У тебя ручное управление.</p>
+  </div>
+</section>
+
+<!-- NOT ANOTHER COURSE -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap fade">
+    <p class="caps-hook">И здесь я бы не стал искать ещё один мотивационный курс.</p>
+    <p>Потому что ты уже знаешь, как мотивировать.</p>
+    <p>Наверняка знаешь больше, чем многие люди, которые сегодня продают обучение по сетевому.</p>
+    <ul class="plain">
+      <li>Тебе не нужен ещё один «Как стать лидером». Ты уже лидер.</li>
+      <li>Тебе не нужен «Как приглашать людей». Ты это умеешь.</li>
+      <li>Тебе не нужен «Как работать с возражениями». Ты уже слышал их сотни.</li>
+    </ul>
+    <p>Тебе нужен другой уровень.</p>
+    <p>Не научить себя работать.</p>
+    <p>А сделать так, чтобы другой человек мог повторить рабочий процесс без постоянного участия тебя.</p>
+    <p>Вот здесь начинается настоящая дубликация.</p>
+  </div>
+</section>
+
+<!-- NOT DO AS I DO -->
+<section>
+  <div class="wrap fade">
+    <p class="label-marker">НЕ</p>
+    <p class="mechanism-line lead">«Делай как я»</p>
+
+    <div class="pause-28"></div>
+
+    <p class="label-marker">А</p>
+    <p class="mechanism-line accent-line">«Вот процесс.</p>
+    <p class="mechanism-line">Пройди его сам.</p>
+    <p class="mechanism-line">Получи опыт.</p>
+    <p class="mechanism-line">Передай его следующему».</p>
+
+    <div class="pause-60"></div>
+
+    <p class="conclusion-line">Это совершенно другая логика.</p>
+
+    <div class="pause-40"></div>
+
+    <p class="body-line">Потому что тогда новый партнёр<br>не становится ещё одним человеком,<br>которого тебе нужно вести.</p>
+
+    <div class="pause-20"></div>
+
+    <p class="body-line">Он постепенно становится человеком,<br>который <span class="weight-hit">сам умеет</span> проходить процесс<br>и передавать его дальше.</p>
+
+    <div class="pause-36"></div>
+
+    <p>И именно эту проблему мы решали, когда собирали свою систему.</p>
+  </div>
+</section>
+
+<!-- START PARTNERA -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap fade">
+    <p class="step-eyebrow">01 / Система</p>
+    <h2 class="step-title">«Старт партнёра»</h2>
+
+    <p>Три дня.</p>
+    <p>Но не три дня:</p>
+
+    <div class="callout-quote" style="font-size:22px;">«Вот компания. Вот продукт. Вот маркетинг-план. Теперь иди приглашай».</div>
+
+    <p style="margin-top:28px;">Сначала человеку нужно изменить собственное представление о том, как вообще работает партнёрский бизнес.</p>
+
+    <p>Понять:</p>
+
+    <div class="list-boxes">
+      <div class="list-box">откуда появляется деньги;</div>
+      <div class="list-box">что именно делает партнёр;</div>
+      <div class="list-box">почему одни люди строят, а другие годами остаются на уровне покупателя;</div>
+      <div class="list-box">как устроен путь от первого контакта до первого самостоятельного результата.</div>
+    </div>
+
+    <p>А уже потом — механика.</p>
+    <p>Потому что бессмысленно давать человеку десять инструментов, если он не понимает, что с ними делать и зачем.</p>
+  </div>
+</section>
+
+<!-- TOCHKA KASANIYA -->
+<section>
+  <div class="wrap fade">
+    <p class="step-eyebrow">02 / Система</p>
+    <h2 class="step-title">«Точка касания»</h2>
+
+    <p>Следующий уровень.</p>
+    <p>Не схема:</p>
+
+    <div class="callout-quote" style="font-size:22px;">лидер → новичок → лидер снова объясняет новичку → лидер спасает новичка.</div>
+
+    <p style="margin-top:28px;">А:</p>
+
+    <div class="callout-quote" style="font-size:22px;">лидер → процесс → партнёр проходит процесс → партнёр передаёт процесс следующему.</div>
+
+    <p style="margin-top:28px;">Так появляется возможность дубликации. Не за счёт твоей харизмы. Не за счёт бесконечных созвонов. Не за счёт того, что ты каждый вечер пишешь в чат: «Команда, ну где ваша активность?» А за счёт того, что человеку есть что повторить.</p>
+  </div>
+</section>
+
+<!-- WHY NEW COMPANY -->
+<section>
+  <div class="wrap fade">
+    <p class="kicker">Честный вопрос</p>
+    <h2 class="section-title">Зачем для этого новая компания?</h2>
+    <p>Вот это уже действительно правильный вопрос.</p>
+    <p>Потому что если проблема только в системе — ты можешь попытаться построить такую систему там, где находишься сейчас.</p>
+    <p>И, возможно, так и стоит сделать.</p>
+    <p>Я не буду убеждать тебя переходить только потому, что появилась новая компания.</p>
+    <ul class="plain">
+      <li>Если тебя полностью устраивает твоя компания...</li>
+      <li>Если команда растёт...</li>
+      <li>Если ты доволен экономикой...</li>
+      <li>Если твоя система уже дублицируется...</li>
+      <li>Если тебя устраивает рынок, на котором ты работаешь...</li>
+    </ul>
+    <p class="statement small" style="margin-top:24px;">тебе, возможно, вообще не нужен Longrich.</p>
+    <p class="center" style="color:var(--text-dim);margin-top:10px;">Серьёзно.</p>
+  </div>
+</section>
+
+<!-- IF YOU HIT CEILING -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap fade">
+    <p><strong>Но если ты уже дошёл до потолка...</strong></p>
+    <p>Если ты понимаешь, что умеешь больше, чем сейчас реализуешь.</p>
+    <p>Если твой результат требует всё больше личного участия.</p>
+    <p>Если ты годами строишь, но каждый новый человек снова начинает зависеть от тебя.</p>
+    <p>Если ты уже устал быть одновременно:</p>
+    <p style="color:var(--accent-soft);font-family:'Manrope',sans-serif;font-weight:700;">лидером, наставником, мотиватором, оператором, диспетчером, службой поддержки — и человеком, который в очередной раз объясняет одно и то же...</p>
+    <p style="margin-top:24px;">тогда появляется другой вопрос.</p>
+    <p>А что, если менять нужно не только систему работы?</p>
+    <p>Что, если стоит посмотреть на само поле, на котором ты эту систему применяешь?</p>
+  </div>
+</section>
+
+<!-- MARKET TIMING -->
+<section>
+  <div class="wrap fade">
+    <h2 class="step-title">Потому что у сетевого есть странная особенность.</h2>
+
+    <p>Можно быть очень сильным игроком...</p>
+    <p>И всё равно оказаться в ситуации, когда следующий шаг стоит слишком дорого.</p>
+    <p>Почему?</p>
+    <p>Потому что рынок уже сформирован.</p>
+
+    <div class="list-boxes">
+      <div class="list-box">Люди распределены.</div>
+      <div class="list-box">Команды построены.</div>
+      <div class="list-box">Лидеры известны.</div>
+      <div class="list-box">У каждого уже есть свой наставник.</div>
+      <div class="list-box">Своя компания. Своя история. Свои отношения.</div>
+    </div>
+
+    <p>И каждый новый человек — это не просто человек.</p>
+    <p>Это человек, которого нужно перевести из уже существующей системы в твою.</p>
+
+    <div class="pause-36"></div>
+
+    <p>А теперь представь другую ситуацию.</p>
+    <p>Компания только начинает формировать рынок в России.</p>
+    <p>Не «рынок вообще». Не весь MLM. А рынок вокруг конкретной компании.</p>
+    <p>И он ещё не успел стать плотным. Лидеры ещё не заняли все позиции. Команды ещё не сформированы. Связи ещё не закрепились на годы. Структура ещё пишется.</p>
+  </div>
+</section>
+
+<section style="background:var(--bg-soft);">
+  <div class="wrap fade">
+    <h2 class="step-title">И вот тут опыт начинает играть по-другому.</h2>
+
+    <p>Новичок приходит на такой рынок и думает:</p>
+
+    <div class="callout-quote" style="font-size:22px;">«С чего начать?»</div>
+
+    <p>Ты приходишь с другим багажом.</p>
+    <ul class="plain">
+      <li>Ты уже знаешь, что делать.</li>
+      <li>Ты уже знаешь, кого искать.</li>
+      <li>Ты уже понимаешь, что лидер — это не просто человек с хорошей речью.</li>
+      <li>Ты знаешь, почему команда не дублицируется.</li>
+      <li>Ты знаешь, где обычно ломается новичок.</li>
+      <li>Ты знаешь цену отсутствию системы.</li>
+    </ul>
+    <p>Поэтому тебе не нужно начинать с нуля.</p>
+    <p><strong class="hl">Тебе нужно перенести свой опыт на новое поле.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap fade">
+    <h2 class="step-title">Именно поэтому мы смотрим на Россию сейчас</h2>
+
+    <p>Не потому что:</p>
+    <div class="callout-quote" style="font-size:22px;">«кто первый — тот всё заберёт».</div>
+    <p>Это сказка.</p>
+
+    <p>Не потому что:</p>
+    <div class="callout-quote" style="font-size:22px;">«рынок свободный, деньги лежат».</div>
+    <p>Тоже сказка.</p>
+
+    <p>И точно не потому что:</p>
+    <div class="callout-quote" style="font-size:22px;">«мы гарантируем тебе доход».</div>
+    <p>Такого я тебе обещать не буду.</p>
+
+    <p>Ранний рынок ничего не гарантирует.</p>
+    <p>Он даёт другое.</p>
+
+    <p class="conclusion-line">Более раннюю позицию в формирующейся структуре.</p>
+
+    <div class="pause-28"></div>
+
+    <p>А дальше всё равно придётся работать.</p>
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap fade">
+    <p class="step-eyebrow">Проверка</p>
+    <h2 class="step-title">А сама компания?</h2>
+    <p>И здесь я понимаю твой вопрос.</p>
+    <p>Потому что если ты уже был в сетевом не первый год, ты наверняка видел и такое: компания красиво стартовала, все говорили о перспективах, лидеры собирали команды — а потом что-то менялось. Маркетинг-план. Руководство. Условия. Или компания просто переставала существовать.</p>
+    <p>И после такого естественный вопрос:</p>
+
+    <div class="callout-quote" style="font-size:22px;">«А с чего я должен верить, что через год здесь вообще всё будет?»</div>
+
+    <p><strong>Не должен.</strong></p>
+    <p>Поэтому не верь мне на слово. Смотри на факты — и на то, что каждый из них реально значит для тебя.</p>
+
+    <div class="stat-list">
+      <div class="stat-card">
+        <h3><span class="accent">1986</span> год основания.</h3>
+        <p>Не стартап под волну хайпа, который может так же тихо закрыться — компании почти сорок лет, она пережила не один экономический цикл до того, как ты о ней вообще услышал.</p>
+      </div>
+      <div class="stat-card">
+        <h3><span class="accent">138 стран</span> регистрации товарного знака.</h3>
+        <p>Юридически закрепить бренд в 138 странах — не то, что делают, когда планируют исчезнуть через пару лет.</p>
+      </div>
+      <div class="stat-card">
+        <h3><span class="accent">8</span> исследовательских центров.</h3>
+        <p>США, Япония, Франция, совместные лаборатории с университетами. Есть что защищать помимо твоих взносов.</p>
+      </div>
+      <div class="stat-card">
+        <h3><span class="accent">ISO / BRC / GMPC</span> сертификации.</h3>
+        <p>9001, 14001, 22716 — подтверждают внешним аудитом каждый год. Их проваливают именно компании-однодневки.</p>
+      </div>
+    </div>
+
+    <div class="btn-wrap">
+      <a href="#" class="hub-btn">Полное досье — документы, история, производство →</a>
+    </div>
+
+    <div class="pause-36"></div>
+
+    <p class="body-line">Посмотри.</p>
+    <p class="body-line">Проверь.</p>
+    <p class="body-line">Задай неудобные вопросы.</p>
+
+    <div class="pause-28"></div>
+
+    <p>Это не гарантия, что ты заработаешь —<br>такую гарантию не даёт никто и нигде.</p>
+    <p>Это гарантия другого:</p>
+
+    <div class="pause-28"></div>
+
+    <p class="conclusion-line">тебе есть что проверить, а не только во что поверить.</p>
+
+    <div class="pause-40"></div>
+
+    <p>Если после этого компания тебе не подходит — значит, не подходит.</p>
+    <p>Мне не нужно, чтобы ты закрывал на что-то глаза.</p>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section>
+  <div class="wrap fade">
+    <h2 class="section-title">Что ты получаешь</h2>
+    <p class="body-line">Не «волшебную кнопку». Не наставника, который будет каждое утро спрашивать «ну что, сколько людей сегодня написал?».</p>
+    <p class="body-line">И не человека, который будет годами тащить твою команду.</p>
+    <div class="pause-28"></div>
+    <p class="body-line">Наоборот.</p>
+    <div class="pause-20"></div>
+    <p class="conclusion-line">Ты получаешь инструменты.<br>И дальше работаешь сам.</p>
+
+    <div class="offer-grid">
+      <div class="offer-card">
+        <div class="idx">01</div>
+        <div><h3>Готовый старт</h3><p>Понятный маршрут первых дней. Чтобы не тратить время на изобретение собственного onboarding с нуля.</p></div>
+      </div>
+      <div class="offer-card">
+        <div class="idx">02</div>
+        <div><h3>«Старт партнёра»</h3><p>Система первых трёх дней, которая сначала формирует понимание модели, а потом переводит человека к действиям.</p></div>
+      </div>
+      <div class="offer-card">
+        <div class="idx">03</div>
+        <div><h3>«Точка касания»</h3><p>Логика дубликации: сам прошёл → понял → повторил → передал следующему.</p></div>
+      </div>
+      <div class="offer-card">
+        <div class="idx">04</div>
+        <div><h3>Готовые материалы</h3><p>Компания. Продукты. Модель. Обучение. Контент. Не нужно собирать всё по кусочкам из десяти чатов.</p></div>
+      </div>
+      <div class="offer-card">
+        <div class="idx">05</div>
+        <div><h3>Реальный опыт Казахстана</h3><p>Не презентация о том, как «когда-нибудь всё будет». А то, что уже произошло на работающем рынке. Результаты. Команды. Процессы. Опыт. Ошибки.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTISALE -->
+<section style="background:var(--bg-soft);">
+  <div class="wrap fade">
+    <p class="step-title">И здесь я хочу сказать самое важное.</p>
+    <div class="pause-20"></div>
+    <p class="body-line">Я не ищу людей, которых нужно спасать.</p>
+    <div class="pause-20"></div>
+    <p class="body-line">Не ищу тех, кому надо ежедневно объяснять, почему нужно работать.</p>
+    <div class="pause-20"></div>
+    <p class="body-line">Не ищу тех, кто хочет «попробовать».</p>
+    <div class="pause-20"></div>
+    <p class="body-line">Не ищу людей, которые ждут, что лидер построит им бизнес.</p>
+    <div class="pause-28"></div>
+    <p class="body-line">Мне нужны люди, которые уже умеют работать.</p>
+    <p class="body-line">Которые понимают: результат не появляется от одной регистрации. Которые умеют принимать решения. Которые способны самостоятельно использовать инструменты. Которые не ждут, пока их будут мотивировать.</p>
+
+    <div class="antisale">
+      <h3>Поэтому здесь есть антисейл.</h3>
+      <p style="color:#d7b3ac;">Если тебе нужен человек, который будет:</p>
+      <ul>
+        <li>каждый день тебя контролировать;</li>
+        <li>заставлять писать людям;</li>
+        <li>напоминать о задачах;</li>
+        <li>вытаскивать тебя из каждого провала;</li>
+        <li>строить твою команду вместо тебя —</li>
+      </ul>
+      <p class="verdict">НЕ ПИШИ МНЕ.</p>
+      <p style="color:#d7b3ac;margin-top:12px;">Мы не подходим. И это нормально.</p>
+    </div>
+
+    <p class="step-title">Но если ты уже умеешь...</p>
+    <div class="pause-20"></div>
+    <p class="body-line">Если ты уже строил команду.</p>
+    <p class="body-line">Если ты понимаешь, что такое дубликация.</p>
+    <p class="body-line">Если у тебя есть опыт, но тебе надоело быть мотором каждого процесса.</p>
+    <p class="body-line">Если ты не хочешь снова становиться новичком.</p>
+    <p class="body-line">Если тебе интересен рынок, который только начинает формироваться.</p>
+    <div class="pause-20"></div>
+    <p class="body-line">И если тебе нужна не нянька, а среда + инструменты + система, которыми можно пользоваться самостоятельно...</p>
+    <div class="pause-28"></div>
+    <p class="conclusion-line accent">тогда нам есть о чём поговорить.</p>
+    <hr class="divider">
+    <p class="step-title">Я не буду просить тебя сразу регистрироваться.</p>
+    <div class="pause-20"></div>
+    <p class="body-line">Сначала посмотри.</p>
+    <p class="body-line">Задай вопросы.</p>
+    <p class="body-line">Попроси документы.</p>
+  </div>
+</section>
+
+<!-- LOOK FIRST -->
+<section>
+  <div class="wrap fade">
+    <ul class="plain">
+      <li>Посмотри на компанию.</li>
+      <li>Посмотри на продукты.</li>
+      <li>Посмотри на маркетинг-план.</li>
+      <li>Посмотри на реальные результаты в Казахстане.</li>
+      <li>Посмотри, что именно мы уже сделали.</li>
+      <li>Посмотри, как устроена система.</li>
+    </ul>
+    <p>А потом сравни с тем, что у тебя есть сейчас.</p>
+    <p style="margin-top:24px;">Потому что вопрос не:</p>
+    <p style="color:var(--text-dim);font-style:italic;">«Хорошая ли это новая компания?»</p>
+    <p>Вопрос другой:</p>
+    <p class="statement small" style="margin-top:12px;">«Имеет ли смысл мои уже накопленные навыки применить на новом рынке — и сделать это не с нуля, а с готовой системой?»</p>
+    <p class="center" style="margin-top:24px;">Если ответ для тебя — да.</p>
+    <p class="center"><strong>Тогда посмотрим дальше.</strong></p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final">
+  <div class="wrap">
+    <p class="kicker">Россия</p>
+    <h2>Напиши мне «<span class="cta-word">РОССИЯ</span>»</h2>
+    <p style="color:var(--text-dim);">Я покажу:</p>
+    <ul class="plain">
+      <li>что сейчас открывается;</li>
+      <li>как устроена модель;</li>
+      <li>что уже готово;</li>
+      <li>какие инструменты ты получишь;</li>
+      <li>какие реальные результаты есть в Казахстане;</li>
+      <li>и почему я вообще считаю этот момент интересным для опытного сетевика.</li>
+    </ul>
+    <a href="https://t.me/" class="cta-btn">Написать «РОССИЯ»</a>
+    <p class="no-promises">Без искусственного дефицита. Без «успей, пока не поздно».</p>
+    <p class="final-line">Сначала посмотри.<br>Потом реши.</p>
+  </div>
+</div>
+
+<footer>Longrich · Первая волна</footer>
+
+<script>
+  const els = document.querySelectorAll('.fade');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
